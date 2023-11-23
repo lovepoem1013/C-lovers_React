@@ -40,7 +40,7 @@ const ProfileModal = ({ userBasicInfo }) => {
         <div className={style.userInfo__info}>
           <div className={style.userInfo__name}>{userBasicInfo.name}</div>
           <div className={style.userInfo__email}>
-            {userBasicInfo.company_email}@clover.com
+            {userBasicInfo.company_email}
           </div>
         </div>
       </div>
