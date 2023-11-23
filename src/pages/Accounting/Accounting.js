@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { SubMenuContext } from "../../App";
 import style from "./Accounting.module.css";
@@ -7,6 +7,7 @@ import NaviBar from "./components/NaviBar/NaviBar";
 import EmployeeAccount from "./Home/EmployeeAccount";
 import CorporationCard from "./Card/CorporationCard";
 import { MenuContext } from "../../App";
+import { OfficeMenuContext } from "../../App";
 
 //export const MenuContext = createContext();
 
@@ -14,6 +15,10 @@ function Accounting() {
   //const [selectedMenu, setSelectedMenu] = useState("accounting");
   const { selectedMenu, setSelectedMenu } = useContext(MenuContext);
   const { handlerClickBackground } = useContext(SubMenuContext);
+  const { officeMenu, setOfficeMenu } = useContext(OfficeMenuContext);
+  useEffect(() => {
+    setOfficeMenu("accounting");
+  }, []);
   return (
     <MenuContext.Provider value={{ selectedMenu, setSelectedMenu }}>
       <div className="container" onClick={handlerClickBackground}>

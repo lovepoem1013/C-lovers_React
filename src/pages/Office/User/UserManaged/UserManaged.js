@@ -20,6 +20,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Pagination from "react-js-pagination";
 import "../../../../components/Pagination/paginationi.css";
+import { OfficeMenuContext } from "../../../../App";
 
 const UserManaged = () => {
   const { setSelectedMenu } = useContext(MenuContext);
@@ -27,7 +28,10 @@ const UserManaged = () => {
   const [userCount, setUserCount] = useState(0);
   // 직원 리스트 불러오기
   const [userList, setUserList] = useState([{}]);
-
+  const { officeMenu, setOfficeMenu } = useContext(OfficeMenuContext);
+  useEffect(() => {
+    setOfficeMenu("office");
+  }, []);
   useEffect(() => {
     // 네비바가 user에 고정되도록 설정
     setSelectedMenu("user");

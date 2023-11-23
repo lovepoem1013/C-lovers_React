@@ -9,8 +9,10 @@ import Accounting from "./pages/Accounting/Accounting";
 export const SubMenuContext = createContext();
 export const ProfileCardContext = createContext();
 export const MenuContext = createContext();
+export const OfficeMenuContext = createContext();
 
 function App() {
+  const [officeMenu, setOfficeMenu] = useState("");
   const [selectedMenu, setSelectedMenu] = useState("");
   const [naviModalOpen, setNaviModalOpen] = useState(false);
   const [profileCardOpen, setProfileCardOpen] = useState(false);
@@ -27,7 +29,6 @@ function App() {
 
   const handlerClickBackground = (e) => {
     if (e.target.tagName !== "DIV") {
-      console.log(e.target.parentElement.parentElement);
       if (e.target.tagName === "svg") {
         if (
           !e.target.parentElement.className.includes(
@@ -46,15 +47,11 @@ function App() {
         }
       }
     } else {
-      console.log(e.target.className);
       if (!e.target.className.includes("Header_headerLeft__dropNav")) {
-        console.log("같지 않음");
-        console.log(e.target.className);
         closeNaviModal();
       }
 
       if (!e.target.className.includes("profile")) {
-        console.log("여기");
         closeProfileModal();
       }
     }
@@ -68,13 +65,14 @@ function App() {
         value={{ profileCardOpen, setProfileCardOpen, handlerClickBackground }}
       >
         <MenuContext.Provider value={{ selectedMenu, setSelectedMenu }}>
-          <Router basename="/admin">
-            <Routes>
-              {/* <Route path="/" element={<Main />} /> */}
-              <Route path="/office/*" element={<Office />}></Route>
-              <Route path="/accounting/*" element={<Accounting />}></Route>
-            </Routes>
-          </Router>
+          <OfficeMenuContext.Provider value={{ officeMenu, setOfficeMenu }}>
+            <Router basename="/admin">
+              <Routes>
+                <Route path="/office/*" element={<Office />}></Route>
+                <Route path="/accounting/*" element={<Accounting />}></Route>
+              </Routes>
+            </Router>
+          </OfficeMenuContext.Provider>
         </MenuContext.Provider>
       </ProfileCardContext.Provider>
     </SubMenuContext.Provider>

@@ -1,5 +1,8 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import style from "./SubNaviBox.module.css";
+import { OfficeMenuContext } from "../../../../App";
+// import { OfficeMenuContext } from "../../../../pages/Office/Office";
+
 import axios from "axios";
 
 const SubNaviBox = ({
@@ -11,8 +14,14 @@ const SubNaviBox = ({
   to,
   setSelectedMenu,
   isSelected,
+  display,
 }) => {
   const [isHovering, setHovering] = useState(false);
+  const { officeMenu, setOfficeMenu } = useContext(OfficeMenuContext);
+  useEffect(() => {
+    console.log("test:" + officeMenu);
+  });
+
   const clickHandler = () => {
     setSelectedMenu(to);
     console.log(title);
@@ -35,9 +44,11 @@ const SubNaviBox = ({
     }
   };
   const backgroundStlye = {
-    backgroundColor: isSelected || isHovering ? "#dcedd4" : "#ffffff",
+    backgroundColor:
+      isSelected || isHovering || officeMenu === to ? "#dcedd4" : "#ffffff",
+    display: display ? "flex" : "none",
   };
-
+  const displayStyle = {};
   return (
     <div
       className={style.naviConp}
